@@ -1,0 +1,86 @@
+<div class="container">
+    <div class="navbar navbar-expand-lg navbar-dark unique-color outline-success">
+        <button type="button" class="btn" (click)="showAddNewItem()">
+            Add New Food Iteam
+        </button>
+        <button type="button" class="btn" (click)="showUpdatePasswordmodal()">
+            Update passsword
+        </button>
+    </div>
+    <div class="modal" [class.modal]="showModal_updatePassword">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div> 
+                    <form [formGroup]="adminUpdatePasswordForm" (ngSubmit) = "onUpdatePasswordSubmit()">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="oldPassword"> Old passsword</label>
+                                <input class="form-control" id="oldPassword" formControlName="oldPassword" type="text"/>
+                                <label for="newPassword"> New passsword</label>
+                                <input class="form-control" id="newPassword" formControlName="newPassword" type="test"/>
+                                <label for="confirmPassword"> Confirm passsword</label>
+                                <input class="form-control" id="confirmPassword" formControlName="confirmPassword" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-outline-success" >Submit</button>
+                                <button type="button" class="btn btn-outline-success right" (click)="closePasswordmodal()">Close</button>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>           
+        </div>        
+    </div>
+
+    <div class="modal" [class.modal]="showModal_AddItem">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div> 
+                    <form [formGroup]="itemForm" (ngSubmit) = "onAddFoosItemSubmit()">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="itemtitle">Title</label>
+                                <input class="form-control" id="itemtitle" formControlName="title" type="text"/>
+                                <label for="itemName">Name</label>
+                                <input class="form-control" id="itemName" formControlName="name" type="text"/>
+                                <label for="itemCategory">Category</label>
+                                <input class="form-control" id="itemCategory" formControlName="category" type="text"/>
+                                <label for="itemPrice">Price</label>
+                                <input class="form-control" id="itemPrice" formControlName="price" type="text"/>
+                                <label for="itemImage">Image Path</label>
+                                <input class="form-control" id="itemImage" formControlName="image" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <button [hidden]="editProduct" type="submit" class="btn btn-outline-success" >Add</button>
+                                <button [hidden]="!editProduct" type="submit" class="btn btn-outline-success" >Update</button>
+                                <button type="button" class="btn btn-outline-success right" (click)="closeAddItemmodal()">Close</button>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>           
+        </div>        
+    </div>
+
+</div>
+
+<div class="container">
+    <div class="row">
+        <ng-container *ngFor="let item of fooditems">
+            <div class="card col-md-3">
+                <img src="{{item.image}}" alt="">
+                <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.title}}</h5>
+                <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.name}}</p>
+                <p><strong>Price:</strong> ${{item.price}}</p>
+                <button type="button" class="btn btn-sm btn-outline-primary mr-2"
+                    (click)="onEditFoodItem(item)">Edit</button>
+                <button type="button" class="btn btn-sm btn-outline-danger"
+                    (click)="onDeleteFoodItem(item._id)">Delete</button>
+            </div>
+            
+        </ng-container>
+
+    </div>
+</div>
